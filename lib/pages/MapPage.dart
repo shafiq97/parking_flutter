@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smart_car_parking/config/colors.dart';
+import 'package:smart_car_parking/pages/history_page/history_page.dart';
 import 'package:smart_car_parking/pages/homepage/homepage.dart';
+import 'package:smart_car_parking/pages/payment_page/payment_page.dart'; // Ensure this import is correct
 
 class MapPage extends StatefulWidget {
   const MapPage({super.key});
@@ -77,7 +79,14 @@ class _MapPageState extends State<MapPage> {
               leading: const Icon(Icons.payment),
               title: const Text('Payment'),
               onTap: () {
-                Get.toNamed('/payment');
+                Get.to(PaymentPage());
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.history),
+              title: const Text('History'),
+              onTap: () {
+                Get.to(HistoryPage());
               },
             ),
             // Add more menu items if needed
