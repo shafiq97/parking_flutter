@@ -3,6 +3,7 @@ import 'package:smart_car_parking/pages/MapPage.dart';
 import 'package:smart_car_parking/pages/about_us/about_us.dart';
 import 'package:smart_car_parking/pages/booking_page/booking_page.dart';
 import 'package:smart_car_parking/pages/homepage/homepage.dart';
+import 'package:smart_car_parking/pages/payment_page/payment_page.dart';
 
 var pages = [
   GetPage(
@@ -20,4 +21,5 @@ var pages = [
     page: () => MapPage(),
     transition: Transition.fade,
   ),
+  GetPage(name: '/payment', page: () => PaymentPage()),
 ];

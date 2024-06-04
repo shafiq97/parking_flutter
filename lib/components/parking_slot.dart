@@ -11,6 +11,7 @@ class ParkingSlot extends StatelessWidget {
   final String? slotName;
   final String slotId;
   final String time;
+  final String floor; // Add floor parameter
 
   const ParkingSlot({
     super.key,
@@ -19,6 +20,7 @@ class ParkingSlot extends StatelessWidget {
     this.slotName,
     this.slotId = "0.0",
     required this.time,
+    required this.floor, // Add floor parameter to constructor
   });
 
   @override
@@ -92,6 +94,7 @@ class ParkingSlot extends StatelessWidget {
                       Get.to(BookingPage(
                         slotId: slotId,
                         slotName: slotName.toString(),
+                        floor: floor, // Pass floor parameter
                       ));
                     },
                     child: Container(

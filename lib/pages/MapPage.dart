@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -37,7 +36,7 @@ class _MapPageState extends State<MapPage> {
             ),
             const SizedBox(width: 20),
             const Text(
-              "SMART CAR PARKING",
+              "SMART PARKING",
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
@@ -48,7 +47,6 @@ class _MapPageState extends State<MapPage> {
         actions: [
           IconButton(
             onPressed: () {
-              // parkingController.timeCounter();
               Get.toNamed("/about-us");
             },
             icon: const Icon(
@@ -58,6 +56,33 @@ class _MapPageState extends State<MapPage> {
           ),
         ],
         centerTitle: true,
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: blueColor,
+              ),
+              child: Text(
+                'Menu',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.payment),
+              title: const Text('Payment'),
+              onTap: () {
+                Get.toNamed('/payment');
+              },
+            ),
+            // Add more menu items if needed
+          ],
+        ),
       ),
       body: GoogleMap(
         buildingsEnabled: true,
@@ -73,8 +98,8 @@ class _MapPageState extends State<MapPage> {
             onTap: () {
               Get.to(HomePage());
             },
-            markerId: MarkerId('parking_1'),
-            position: LatLng(
+            markerId: const MarkerId('parking_1'),
+            position: const LatLng(
                 2.9855, 101.7603), // Example coordinates near UNITEN Bangi
           ),
           Marker(
@@ -82,8 +107,8 @@ class _MapPageState extends State<MapPage> {
             onTap: () {
               Get.to(HomePage());
             },
-            markerId: MarkerId('parking_2'),
-            position: LatLng(
+            markerId: const MarkerId('parking_2'),
+            position: const LatLng(
                 2.9850, 101.7598), // Example coordinates near UNITEN Bangi
           ),
           Marker(
@@ -91,8 +116,8 @@ class _MapPageState extends State<MapPage> {
             onTap: () {
               Get.to(HomePage());
             },
-            markerId: MarkerId('parking_3'),
-            position: LatLng(
+            markerId: const MarkerId('parking_3'),
+            position: const LatLng(
                 2.9847, 101.7595), // Example coordinates near UNITEN Bangi
           ),
           Marker(
@@ -100,8 +125,8 @@ class _MapPageState extends State<MapPage> {
             onTap: () {
               Get.to(HomePage());
             },
-            markerId: MarkerId('parking_4'),
-            position: LatLng(
+            markerId: const MarkerId('parking_4'),
+            position: const LatLng(
                 2.9853, 101.7597), // Example coordinates near UNITEN Bangi
           ),
           Marker(
@@ -109,8 +134,8 @@ class _MapPageState extends State<MapPage> {
             onTap: () {
               Get.to(HomePage());
             },
-            markerId: MarkerId('parking_5'),
-            position: LatLng(
+            markerId: const MarkerId('parking_5'),
+            position: const LatLng(
                 2.9851, 101.7602), // Example coordinates near UNITEN Bangi
           ),
         },

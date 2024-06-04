@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
@@ -10,21 +12,27 @@ import '../../config/colors.dart';
 class BookingPage extends StatelessWidget {
   final String slotName;
   final String slotId;
-  const BookingPage({super.key, required this.slotId, required this.slotName});
+  final String floor; // Add floor parameter
+  const BookingPage(
+      {super.key,
+      required this.slotId,
+      required this.slotName,
+      required this.floor});
 
   Future<void> _payNow(ParkingController parkingController) async {
     const url = 'http://10.0.2.2:5001/payments'; // Replace with your Flask URL
+    log(floor);
     final response = await http.post(
       Uri.parse(url),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
-        'name': parkingController.name.text,
+        'email': parkingController.name.text,
         'vehicalNumber': parkingController.vehicalNumber.text,
         'slotId': slotId,
         'slotName': slotName,
         'parkingTimeInMin': parkingController.parkingTimeInMin.value,
         'amount': parkingController.parkingAmount.value,
-        'floor': parkingController.floor.value,
+        'floor': 1, // Use the floor value
       }),
     );
 
@@ -92,7 +100,7 @@ class BookingPage extends StatelessWidget {
                 const Row(
                   children: [
                     Text(
-                      "Enter your name ",
+                      "Enter your email ",
                     )
                   ],
                 ),
@@ -110,7 +118,7 @@ class BookingPage extends StatelessWidget {
                             Icons.person,
                             color: blueColor,
                           ),
-                          hintText: "Shafiq",
+                          hintText: "Azleena",
                         ),
                       ),
                     )

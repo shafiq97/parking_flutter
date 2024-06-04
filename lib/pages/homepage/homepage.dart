@@ -10,6 +10,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String selectedFloor = ""; // To store the selected floor
+
     ParkingController parkingController = Get.put(ParkingController());
     return Scaffold(
         appBar: AppBar(
@@ -87,6 +89,7 @@ class HomePage extends StatelessWidget {
                         slotId: "1",
                         time: parkingController.slot1.value.parkingHours
                             .toString(),
+                        floor: selectedFloor, // Pass the selected floor
                       ),
                     )),
                     const SizedBox(
@@ -106,6 +109,7 @@ class HomePage extends StatelessWidget {
                         slotId: "2",
                         time: parkingController.slot2.value.parkingHours
                             .toString(),
+                        floor: selectedFloor, // Pass the selected floor
                       ),
                     ))
                   ],
@@ -121,6 +125,7 @@ class HomePage extends StatelessWidget {
                               slotId: "3",
                               time: parkingController.slot3.value.parkingHours
                                   .toString(),
+                              floor: selectedFloor, // Pass the selected floor
                             ))),
                     const SizedBox(
                       width: 60,
@@ -138,6 +143,7 @@ class HomePage extends StatelessWidget {
                               slotId: "4",
                               time: parkingController.slot4.value.parkingHours
                                   .toString(),
+                              floor: selectedFloor, // Pass the selected floor
                             )))
                   ],
                 ),
@@ -152,6 +158,7 @@ class HomePage extends StatelessWidget {
                               slotId: "5",
                               time: parkingController.slot5.value.parkingHours
                                   .toString(),
+                              floor: selectedFloor, // Pass the selected floor
                             ))),
                     const SizedBox(
                       width: 60,
@@ -169,6 +176,7 @@ class HomePage extends StatelessWidget {
                               slotId: "6",
                               time: parkingController.slot6.value.parkingHours
                                   .toString(),
+                              floor: selectedFloor, // Pass the selected floor
                             )))
                   ],
                 ),
@@ -183,6 +191,7 @@ class HomePage extends StatelessWidget {
                               slotId: "7",
                               time: parkingController.slot7.value.parkingHours
                                   .toString(),
+                              floor: selectedFloor, // Pass the selected floor
                             ))),
                     const SizedBox(
                       width: 60,
@@ -200,6 +209,7 @@ class HomePage extends StatelessWidget {
                               slotId: "8",
                               time: parkingController.slot8.value.parkingHours
                                   .toString(),
+                              floor: selectedFloor, // Pass the selected floor
                             )))
                   ],
                 ),

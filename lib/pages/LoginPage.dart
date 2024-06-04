@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smart_car_parking/components/MyButton.dart';
 import 'package:smart_car_parking/components/MyTextField.dart';
+import 'package:smart_car_parking/controller/AuthController.dart';
 import 'package:smart_car_parking/pages/MapPage.dart';
 
 import 'SignUpPage.dart';
@@ -11,8 +12,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController emailController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
+    final AuthController authController = Get.put(AuthController());
 
     return Scaffold(
       appBar: AppBar(
@@ -30,20 +30,28 @@ class LoginPage extends StatelessWidget {
                 MyTextField(
                   icons: Icons.email,
                   lable: "Email id",
-                  Onchange: emailController,
+                  controller:
+                      TextEditingController(text: authController.email.value),
+                  onChanged: (value) {
+                    authController.setEmail(value);
+                  },
                 ),
                 const SizedBox(height: 10),
                 MyTextField(
                   icons: Icons.password,
                   lable: "Password",
-                  Onchange: passwordController,
+                  controller: TextEditingController(
+                      text: authController.password.value),
+                  onChanged: (value) {
+                    authController.setPassword(value);
+                  },
                 ),
                 const SizedBox(height: 90),
                 MyButton(
                   icon: Icons.admin_panel_settings_rounded,
                   Btname: "LOGIN",
                   ontap: () {
-                    // Use emailController.text and passwordController.text as needed
+                    // Use authController.email.value and authController.password.value as needed
                     Get.offAll(const MapPage());
                   },
                 ),
