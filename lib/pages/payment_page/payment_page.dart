@@ -30,12 +30,88 @@ class PaymentPage extends StatelessWidget {
                 return ListTile(
                   title: Text('Slot: ${payment['slot_name']}'),
                   subtitle: Text('Amount: RM${payment['amount']}'),
-                  trailing: Text('Floor: ${payment['floor']}'),
+                  trailing: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text('Floor: ${payment['floor']}'),
+                        ElevatedButton(
+                          onPressed: () {
+                            _showPaymentModal(context, payment);
+                          },
+                          child: Text('Pay'),
+                        ),
+                      ],
+                    ),
+                  ),
                 );
               },
             );
           }
         },
+      ),
+    );
+  }
+
+  void _showPaymentModal(BuildContext context, dynamic payment) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return PaymentModal(payment: payment);
+      },
+    );
+  }
+}
+
+class PaymentModal extends StatefulWidget {
+  final dynamic payment;
+
+  PaymentModal({required this.payment});
+
+  @override
+  _PaymentModalState createState() => _PaymentModalState();
+}
+
+class _PaymentModalState extends State<PaymentModal> {
+  String? selectedBank;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Select Bank for Payment'),
+            const SizedBox(height: 20),
+            DropdownButton<String>(
+              isExpanded: true,
+              value: selectedBank,
+              items: [
+                DropdownMenuItem(value: 'Bank A', child: Text('Bank A')),
+                DropdownMenuItem(value: 'Bank B', child: Text('Bank B')),
+                DropdownMenuItem(value: 'Bank C', child: Text('Bank C')),
+              ],
+              onChanged: (value) {
+                setState(() {
+                  selectedBank = value;
+                });
+              },
+              hint: Text('Select Bank'),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                // Handle payment process
+                Navigator.pop(context); // Close the modal after payment
+                Get.snackbar('Success', 'Payment processed successfully');
+              },
+              child: Text('Pay'),
+            ),
+          ],
+        ),
       ),
     );
   }
