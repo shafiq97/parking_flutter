@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "450443263694",
+    "project_id": "smart-car-parking-iot-c531f",
+    "storage_bucket": "smart-car-parking-iot-c531f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450443263694:android:0dbcc2b09e32bfdd6dda9f",
+        "android_client_info": {
+          "package_name": "com.example.smart_car_parking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "450443263694-jfjknnbu7ig08g2tspvbkcjhnrt7sigu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGMNY7W9RoJFZ9zI48Cjy8KHWvr5fhca0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "450443263694-jfjknnbu7ig08g2tspvbkcjhnrt7sigu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
