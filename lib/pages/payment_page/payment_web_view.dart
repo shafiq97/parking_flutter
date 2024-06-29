@@ -3,8 +3,9 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class PaymentWebView extends StatelessWidget {
   final String url;
+  final VoidCallback onSuccess;
 
-  const PaymentWebView({super.key, required this.url});
+  PaymentWebView({required this.url, required this.onSuccess});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,10 @@ class PaymentWebView extends StatelessWidget {
             // Handle actions when a page starts loading
           },
           onPageFinished: (String url) {
-            // Handle actions when a page finishes loading
+            // Check if the payment was successful
+            if (url.contains('success')) {
+              onSuccess();
+            }
           },
           onWebResourceError: (WebResourceError error) {
             // Handle errors

@@ -55,7 +55,14 @@ class _PaymentOptionsPageState extends State<PaymentOptionsPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => PaymentWebView(url: billUrl),
+                      builder: (context) => PaymentWebView(
+                        url: billUrl,
+                        onSuccess: () {
+                          Get.snackbar(
+                              'Success', 'Payment processed successfully');
+                          Navigator.pop(context); // Pop back after success
+                        },
+                      ),
                     ),
                   );
                 } else {
@@ -80,8 +87,8 @@ class _PaymentOptionsPageState extends State<PaymentOptionsPage> {
         'billDescription':
             'Car Rental ${payment['slot_name']} on ${payment['date']}',
         'billAmount': 1,
-        'billReturnUrl': 'http://yourapp.com',
-        'billCallbackUrl': 'http://yourapp.com/paystatus',
+        'billReturnUrl': 'https://www.uniten.edu.my/success',
+        'billCallbackUrl': 'https://www.uniten.edu.my/success',
         'billExternalReferenceNo': 'REF12345',
         'billTo': 'John Doe',
         'billEmail': 'john@example.com',
