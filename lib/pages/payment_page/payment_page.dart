@@ -1,9 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:smart_car_parking/controller/AuthController.dart';
+import 'package:smart_car_parking/pages/payment_page/payment_option.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class PaymentPage extends StatelessWidget {
   PaymentPage({super.key});
+
+  Future<Map<String, dynamic>?> createBill(dynamic payment) async {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) {
+      Get.snackbar('Error', 'User not logged in');
+      return null;
+    }
+
+    final url = Uri.parse('http://10.0.2.2:5001/create-bill');
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({
+        'billName': 'Car Rental ${payment['slot_name']}',
+        'billDescription':
+            'Car Rental ${payment['slot_name']} on ${payment['date']}',
+        'billAmount': 1,
+        'billReturnUrl': 'https://www.uniten.edu.my/',
+        'billCallbackUrl': 'https://www.uniten.edu.my/',
+        'billExternalReferenceNo': 'REF12345',
+        'billTo': user.displayName ?? 'John Doe',
+        'billEmail': user.email,
+        'billPhone': '0123456789',
+        'billExpiryDate': '17-12-2024 17:00:00',
+        'billExpiryDays': 3,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      final List<dynamic> jsonResponse = json.decode(response.body);
+      return jsonResponse.isNotEmpty
+          ? jsonResponse[0] as Map<String, dynamic>
+          : null;
+    } else {
+      Get.snackbar('Error', 'Failed to create bill');
+      return null;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +82,15 @@ class PaymentPage extends StatelessWidget {
                         Text('Floor: ${payment['floor']}'),
                         ElevatedButton(
                           onPressed: () {
-                            _showPaymentModal(context, payment);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    PaymentOptionsPage(payment: payment),
+                              ),
+                            );
                           },
-                          child: Text('Pay'),
+                          child: const Text('Pay'),
                         ),
                       ],
                     ),
@@ -50,68 +100,6 @@ class PaymentPage extends StatelessWidget {
             );
           }
         },
-      ),
-    );
-  }
-
-  void _showPaymentModal(BuildContext context, dynamic payment) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return PaymentModal(payment: payment);
-      },
-    );
-  }
-}
-
-class PaymentModal extends StatefulWidget {
-  final dynamic payment;
-
-  PaymentModal({required this.payment});
-
-  @override
-  _PaymentModalState createState() => _PaymentModalState();
-}
-
-class _PaymentModalState extends State<PaymentModal> {
-  String? selectedBank;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text('Select Bank for Payment'),
-            const SizedBox(height: 20),
-            DropdownButton<String>(
-              isExpanded: true,
-              value: selectedBank,
-              items: [
-                DropdownMenuItem(value: 'Bank A', child: Text('Bank A')),
-                DropdownMenuItem(value: 'Bank B', child: Text('Bank B')),
-                DropdownMenuItem(value: 'Bank C', child: Text('Bank C')),
-              ],
-              onChanged: (value) {
-                setState(() {
-                  selectedBank = value;
-                });
-              },
-              hint: Text('Select Bank'),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Handle payment process
-                Navigator.pop(context); // Close the modal after payment
-                Get.snackbar('Success', 'Payment processed successfully');
-              },
-              child: Text('Pay'),
-            ),
-          ],
-        ),
       ),
     );
   }

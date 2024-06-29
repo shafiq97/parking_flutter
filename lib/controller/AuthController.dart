@@ -18,7 +18,7 @@ class AuthController extends GetxController {
 
   Future<List<dynamic>> fetchPayments() async {
     final response = await http
-        .get(Uri.parse('http://10.0.2.2:5001/payments/${email.value}'));
+        .get(Uri.parse('http://10.0.2.2:5002/payments/${email.value}'));
 
     if (response.statusCode == 200) {
       return json.decode(response.body);
@@ -29,7 +29,7 @@ class AuthController extends GetxController {
 
   Future<List<dynamic>> fetchHistory() async {
     final response = await http
-        .get(Uri.parse('http://10.0.2.2:5001/history/${email.value}'));
+        .get(Uri.parse('http://10.0.2.2:5002/history/${email.value}'));
 
     if (response.statusCode == 200) {
       return json.decode(response.body);

@@ -23,5 +23,5 @@ var pages = [
     transition: Transition.fade,
   ),
   GetPage(name: '/payment', page: () => PaymentPage()),
-  GetPage(name: '/history', page: () => HistoryPage()), // Add this route
+  GetPage(name: '/history', page: () => HistoryPage()),
 ];
